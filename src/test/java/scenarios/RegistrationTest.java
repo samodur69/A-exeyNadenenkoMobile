@@ -11,12 +11,12 @@ public class RegistrationTest extends BaseTest {
     @Test(groups = {"native"})
     public void performRegistrationAndLoginTest() throws Exception {
         User user = new User("aa@aa.com", "alex", "12345678");
-        String actual = getPo()
-            .navigateToRegistration()
-            .createAccount(user)
-            .logIn(user)
-            .getPageTitle();
-        System.out.println(actual);
-        assertEquals(actual, "BudgetActivity", "Wrong title");
+        assertEquals(nativePo
+                .navigateToRegistration()
+                .createAccount(user)
+                .logIn(user)
+                .getPageTitle(),
+            "BudgetActivity",
+            "Wrong title");
     }
 }

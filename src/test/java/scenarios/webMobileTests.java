@@ -8,7 +8,7 @@ import setup.BaseTest;
 
 public class webMobileTests extends BaseTest {
 
-    @Test(groups = {"web"}, description = "Make sure that we've opened IANA homepage")
+//    @Test(groups = {"web"}, description = "Make sure that we've opened IANA homepage")
     public void simpleWebTest() throws InterruptedException {
         getDriver().get("http://iana.org"); // open IANA homepage
 
