@@ -4,7 +4,6 @@ import static org.testng.Assert.assertEquals;
 
 import dto.User;
 import org.testng.annotations.Test;
-import setup.BaseTest;
 
 public class RegistrationTest extends BaseTest {
 

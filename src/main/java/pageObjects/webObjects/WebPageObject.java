@@ -1,7 +1,6 @@
 package pageObjects.webObjects;
 
 import io.appium.java_client.AppiumDriver;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.Keys;
@@ -11,7 +10,7 @@ import pageObjects.AbstractPageObject;
 
 public class WebPageObject extends AbstractPageObject {
 
-    @FindBy(xpath = "//input[@name='q']")
+    @FindBy(xpath = "//input[@type='search']")
     private WebElement searchField;
 
     @FindBy(xpath = "//div[@id='rso']/div")

@@ -1,4 +1,4 @@
-package setup;
+package scenarios;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 import pageObjects.webObjects.WebPageObject;
 
-public class BaseTest implements IDriver {
+public class BaseTest {
 
     private static AppiumDriver<MobileElement> appiumDriver;
     protected NativeSigninPage nativePo;
