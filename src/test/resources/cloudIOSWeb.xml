@@ -3,7 +3,7 @@
   <parameter name="appType" value="web"/>
   <parameter name="platformName" value="iOS"/>
   <parameter name="browserName" value="Safari"/>
-  <parameter name="udid" value="..................."/>
+<!--  <parameter name="udid" value="..................."/>-->
   <test name="Cloud iOS Web Test">
     <groups>
       <run>

@@ -43,12 +43,9 @@
           <suiteXmlFiles>
             <suiteXmlFile>${suite.file}</suiteXmlFile>
           </suiteXmlFiles>
-          <!--                    <environmentVariables>-->
-          <!--                        <ts.appium>http://0.0.0.0:4723/wd/hub</ts.appium>-->
-          <!--                    </environmentVariables>-->
           <systemPropertyVariables>
             <ts.appium>http://0.0.0.0:4723/wd/hub</ts.appium>
-            <!--                        <ts.appium>https://EPM-TSTF:${token}@mibilecloud.epam.com/wd/hub</ts.appium>-->
+            <!--                        <ts.appium>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</ts.appium>-->
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -66,7 +63,7 @@
 
   <profiles>
     <profile>
-      <id>native</id>
+      <id>nativeAndroid</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
@@ -85,12 +82,39 @@
       </properties>
     </profile>
     <profile>
-      <id>cloudWeb</id>
+      <id>cloudAndroidWeb</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <suite.file>src/test/resources/cloudWeb.xml</suite.file>
+        <suite.file>src/test/resources/cloudAndroidWeb.xml</suite.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>cloudIOSWeb</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>src/test/resources/cloudIOSWeb.xml</suite.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>cloudIOSNative</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>src/test/resources/cloudIOSNative.xml</suite.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>cloudAndroidNative</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <suite.file>src/test/resources/cloudAndroidNative.xml</suite.file>
       </properties>
     </profile>
   </profiles>
