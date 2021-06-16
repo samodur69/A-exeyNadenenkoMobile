@@ -2,8 +2,8 @@
 
 ###### Native
 
-`mvn clean test -P native`
+`mvn clean test -Pnative`
 
 ###### Web
 
-`mvn clean test -P web`
+`mvn clean test -Pweb`
