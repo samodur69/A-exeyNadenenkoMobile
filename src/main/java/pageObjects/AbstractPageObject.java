@@ -23,10 +23,10 @@ public class AbstractPageObject implements IPageObject {
 
     public void openUrlInBrowser(String url) {
         appiumDriver.get(url);
-//        new WebDriverWait(appiumDriver, 10).until(
-//            wd -> ((JavascriptExecutor) wd)
-//                .executeScript("return document.readyState")
-//                .equals("complete"));
+        new WebDriverWait(appiumDriver, 10).until(
+            wd -> ((JavascriptExecutor) wd)
+                .executeScript("return document.readyState")
+                .equals("complete"));
     }
 
     @Override

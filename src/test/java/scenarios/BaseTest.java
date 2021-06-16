@@ -14,11 +14,11 @@ import pageObjects.webObjects.WebPageObject;
 
 public class BaseTest {
 
-    private static AppiumDriver<MobileElement> appiumDriver;
+    private static AppiumDriver appiumDriver;
     protected NativeSigninPage nativePo;
     protected WebPageObject webPo;
 
-    public AppiumDriver<MobileElement> getDriver() {
+    public AppiumDriver getDriver() {
         return appiumDriver;
     }
 
@@ -64,7 +64,7 @@ public class BaseTest {
         appiumDriver.hideKeyboard();
     }
 
-    private void setPageObject(String appType, AppiumDriver<MobileElement> appiumDriver) throws Exception {
+    private void setPageObject(String appType, AppiumDriver appiumDriver) throws Exception {
         switch (appType) {
             case "native":
                 nativePo = new NativeSigninPage(appiumDriver);

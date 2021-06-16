@@ -36,9 +36,9 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${suite.file}</suiteXmlFile>
                     </suiteXmlFiles>
-                    <environmentVariables>
-                        <ts.appium>http://0.0.0.0:4723/wd/hub</ts.appium>
-                    </environmentVariables>
+<!--                    <environmentVariables>-->
+<!--                        <ts.appium>http://0.0.0.0:4723/wd/hub</ts.appium>-->
+<!--                    </environmentVariables>-->
                     <systemPropertyVariables>
                         <ts.appium>http://0.0.0.0:4723/wd/hub</ts.appium>
                     </systemPropertyVariables>
