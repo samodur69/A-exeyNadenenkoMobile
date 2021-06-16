@@ -22,12 +22,29 @@ public class BaseTest {
         return appiumDriver;
     }
 
-    @Parameters({"platformName", "appType", "deviceName", "browserName", "app", "newCommandTimeout"})
+    @Parameters({"platformName",
+                    "appType",
+                    "deviceName",
+                    "udid",
+                    "browserName",
+                    "app",
+                    "appPackage",
+                    "appActivity",
+                    "bundleId",
+                    "newCommandTimeout"})
     @BeforeSuite(alwaysRun = true)
-    public void setUp(String platformName, String appType, String deviceName, @Optional("") String browserName,
-                      @Optional("") String app, @Optional("") String timeout) throws Exception {
+    public void setUp(String platformName,
+                      String appType,
+                      @Optional("") String deviceName,
+                      @Optional("") String udid,
+                      @Optional("") String browserName,
+                      @Optional("") String app,
+                      @Optional("") String appPackage,
+                      @Optional("") String appActivity,
+                      @Optional("") String bundleId,
+                      @Optional("") String timeout) throws Exception {
         System.out.println("Before: app type - " + appType);
-        setAppiumDriver(platformName, deviceName, browserName, app, timeout);
+        setAppiumDriver(platformName, deviceName, udid, browserName, app, appPackage, appActivity, bundleId, timeout);
         setPageObject(appType, appiumDriver);
     }
 
@@ -39,22 +56,32 @@ public class BaseTest {
 
     private void setAppiumDriver(String platformName,
                                  String deviceName,
+                                 String udid,
                                  String browserName,
                                  String app,
+                                 String appPackage,
+                                 String appActivity,
+                                 String bundleId,
                                  String timeout) {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //mandatory Android capabilities
+
         capabilities.setCapability("platformName", platformName);
         capabilities.setCapability("deviceName", deviceName);
+        capabilities.setCapability("udid", udid);
+        capabilities.setCapability("browserName", browserName);
         if (app.endsWith(".apk")) {
             capabilities.setCapability("app", (new File(app)).getAbsolutePath());
         }
-        capabilities.setCapability("browserName", browserName);
+        capabilities.setCapability("appPackage", appPackage);
+        capabilities.setCapability("appActivity", appActivity);
+        capabilities.setCapability("bundleId", bundleId);
         capabilities.setCapability("chromedriverDisableBuildCheck", "true");
         capabilities.setCapability("newCommandTimeout", timeout);
-
+//        if(platformName.equals("iOS")) {
+//            capabilities.setCapability("automationName", "XCUITest");
+//        }
         try {
-            appiumDriver = new AppiumDriver<>(new URL(System.getProperty("ts.appium")), capabilities);
+            appiumDriver = new AppiumDriver(new URL(System.getProperty("ts.appium")), capabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
