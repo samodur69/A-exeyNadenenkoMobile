@@ -24,8 +24,12 @@ public class BaseTest {
 
     @Parameters({"platformName", "appType", "deviceName", "browserName", "app", "newCommandTimeout"})
     @BeforeSuite(alwaysRun = true)
-    public void setUp(String platformName, String appType, String deviceName, @Optional("") String browserName,
-                      @Optional("") String app, @Optional("") String timeout) throws Exception {
+    public void setUp(String platformName,
+                      String appType,
+                      String deviceName,
+                      @Optional("") String browserName,
+                      @Optional("") String app,
+                      @Optional("") String timeout) throws Exception {
         System.out.println("Before: app type - " + appType);
         setAppiumDriver(platformName, deviceName, browserName, app, timeout);
         setPageObject(appType, appiumDriver);
