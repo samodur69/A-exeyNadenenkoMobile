@@ -1,7 +1,6 @@
 package scenarios;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
 import pageObjects.nativeObjects.NativeSigninPage;
@@ -56,13 +55,11 @@ public class BaseTest {
         capabilities.setCapability("browserName", browserName);
         capabilities.setCapability("chromedriverDisableBuildCheck", "true");
         capabilities.setCapability("newCommandTimeout", timeout);
-
         try {
             appiumDriver = new AppiumDriver<>(new URL(System.getProperty("ts.appium")), capabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
         // Timeouts tuning
         appiumDriver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
         appiumDriver.hideKeyboard();
@@ -77,7 +74,7 @@ public class BaseTest {
                 webPo = new WebPageObject(appiumDriver);
                 break;
             default:
-                System.out.println("");
+                System.out.println("Wrong choice");
                 break;
         }
     }

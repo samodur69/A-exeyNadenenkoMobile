@@ -21,6 +21,7 @@ public class AbstractPageObject implements IPageObject {
         PageFactory.initElements( new AppiumFieldDecorator(appiumDriver), this);
     }
 
+    //  deprecated
     public void openUrlInBrowser(String url) {
         appiumDriver.get(url);
         new WebDriverWait(appiumDriver, 10).until(
