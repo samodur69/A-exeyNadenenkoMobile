@@ -9,8 +9,12 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <java-client.version>7.5.1</java-client.version>
-    <token>122313</token>
+    <java-client.version>7.3.0</java-client.version>
+    <maven-surefire-plugin.encoding>UTF-8</maven-surefire-plugin.encoding>
+    <ts.appium.cloud>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</ts.appium.cloud>
+    <ts.appium.local>http://0.0.0.0:4723/wd/hub</ts.appium.local>
+    <appium.env.setting>${ts.appium.cloud}</appium.env.setting>
+    <token>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMR0xsSnVPQmxyUHF3Wi1JaTQ1VG1KQnVfakdVNnRLV3hKdm1JQ0w3cDU4In0.eyJleHAiOjE2MjY0MzMwNDMsImlhdCI6MTYyMzg0MTA0MywianRpIjoiMDVjNzEwZDQtZWQ1NS00Yjg3LThjNDctMWE2ZGM3ZDNhN2I4IiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5lcG0tdHN0Zi5wcm9qZWN0cy5lcGFtLmNvbS9hdXRoL3JlYWxtcy9wcm9kdWN0aW9uIiwiYXVkIjoibW9iaWxlY2xvdWQiLCJzdWIiOiI2ODkyZTAwMi02OGRiLTQzOWQtYmVmNi1lMWRjMDIzMzUyNmEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJtb2JpbGVjbG91ZCIsInNlc3Npb25fc3RhdGUiOiI0NTljNzY5OC1jZjAxLTQ4ZGQtYmRiNy0yZGE5OTgzMjI5MDIiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNsb3VkX3VzZXIiLCJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBvZmZsaW5lX2FjY2VzcyBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cF9pZCI6Ijg1OTQzMTQ3LWVlYjQtNGY2ZC04MWU4LWQyMTBlZTYxOTFjOCIsIm5hbWUiOiJBbGV4ZXkgTmFkZW5lbmtvMSIsInByZWZlcnJlZF91c2VybmFtZSI6ImFsZXhleV9uYWRlbmVua28xQGVwYW0uY29tIiwiZ2l2ZW5fbmFtZSI6IkFsZXhleSIsImZhbWlseV9uYW1lIjoiTmFkZW5lbmtvMSIsImVtYWlsIjoiYWxleGV5X25hZGVuZW5rbzFAZXBhbS5jb20ifQ.pThK0FW_XeDtCDh5LxIZZIXgVDnyNZoAFShALsR1CD7aBOiZXGCpj3c1cduGAmHVAkLF44mwhTul8eGUVhjtyUWGsm8NiY40MJkJ2UkDKSadtJT59Zex5D8-R0Md-sfoxB2fNUuQtyyXLdsmGj_XvPe01Qf8UtPWZGM7zF1r4fqMJgZPYoDrPdVtWDHMiMLuySOf9yUVprksNB7X8ZXYRfNrrlPx8kuuufyPfTZpkc5IXL5pv4EsQV7CFtLL8j1ipOydXcEnRvKI6OEmb-q6cTVbV8k3YIrwubZriRH-8ctWS4UUtn2pbbu9Vq6zR5_TsEWF3dp2XPMpPsdaK4Uyfw</token>
   </properties>
 
   <dependencies>
@@ -31,21 +35,37 @@
     </dependency>
   </dependencies>
 
-
-
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>src/test/resources/token.properies</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
         <configuration>
+          <encoding>${maven-surefire-plugin.encoding}</encoding>
           <suiteXmlFiles>
             <suiteXmlFile>${suite.file}</suiteXmlFile>
           </suiteXmlFiles>
           <systemPropertyVariables>
-            <ts.appium>http://0.0.0.0:4723/wd/hub</ts.appium>
-            <!--                        <ts.appium>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</ts.appium>-->
+            <ts.appium>${appium.env.setting}</ts.appium>
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -54,6 +74,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
+          <encoding>UTF-8</encoding>
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
@@ -63,24 +84,27 @@
 
   <profiles>
     <profile>
-      <id>nativeAndroid</id>
+      <id>localNativeAndroid</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
         <suite.file>src/test/resources/nativeTNG.xml</suite.file>
+        <appium.env.setting>${ts.appium.local}</appium.env.setting>
       </properties>
     </profile>
 
     <profile>
-      <id>web</id>
+      <id>localWeb</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
         <suite.file>src/test/resources/webTNG.xml</suite.file>
+        <appium.env.setting>${ts.appium.local}</appium.env.setting>
       </properties>
     </profile>
+
     <profile>
       <id>cloudAndroidWeb</id>
       <activation>
@@ -88,6 +112,7 @@
       </activation>
       <properties>
         <suite.file>src/test/resources/cloudAndroidWeb.xml</suite.file>
+        <appium.env.setting>${ts.appium.cloud}</appium.env.setting>
       </properties>
     </profile>
     <profile>
@@ -97,6 +122,7 @@
       </activation>
       <properties>
         <suite.file>src/test/resources/cloudIOSWeb.xml</suite.file>
+        <appium.env.setting>${ts.appium.cloud}</appium.env.setting>
       </properties>
     </profile>
     <profile>
@@ -106,6 +132,7 @@
       </activation>
       <properties>
         <suite.file>src/test/resources/cloudIOSNative.xml</suite.file>
+        <appium.env.setting>${ts.appium.cloud}</appium.env.setting>
       </properties>
     </profile>
     <profile>
@@ -115,6 +142,7 @@
       </activation>
       <properties>
         <suite.file>src/test/resources/cloudAndroidNative.xml</suite.file>
+        <appium.env.setting>${ts.appium.cloud}</appium.env.setting>
       </properties>
     </profile>
   </profiles>

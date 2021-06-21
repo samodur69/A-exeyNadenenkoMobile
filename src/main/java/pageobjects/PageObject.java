@@ -1,8 +1,6 @@
-package pageObjects;
+package pageobjects;
 
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
-import pageObjects.webObjects.WebPageObject;
 import setup.IPageObject;
 
 // @DEPRECATED

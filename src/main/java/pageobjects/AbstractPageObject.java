@@ -1,7 +1,6 @@
-package pageObjects;
+package pageobjects;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -12,13 +11,13 @@ import setup.IPageObject;
 
 public class AbstractPageObject implements IPageObject {
 
-    protected AppiumDriver<MobileElement> appiumDriver;
+    protected AppiumDriver appiumDriver;
     protected WebDriverWait wait;
 
-    public AbstractPageObject(AppiumDriver<MobileElement> appiumDriver) {
+    public AbstractPageObject(AppiumDriver appiumDriver) {
         this.appiumDriver = appiumDriver;
         this.wait = new WebDriverWait(appiumDriver, 20);
-        PageFactory.initElements( new AppiumFieldDecorator(appiumDriver), this);
+        PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);
     }
 
     public void openUrlInBrowser(String url) {
@@ -31,14 +30,14 @@ public class AbstractPageObject implements IPageObject {
 
     @Override
     public void sendKeys(WebElement el, String text) {
-        appiumDriver.hideKeyboard();
+        //        appiumDriver.hideKeyboard();
         wait.until(ExpectedConditions.visibilityOf(el));
         el.sendKeys(text);
     }
 
     @Override
     public void click(WebElement el) {
-        appiumDriver.hideKeyboard();
+        //        appiumDriver.hideKeyboard();
         wait.until(ExpectedConditions.elementToBeClickable(el));
         el.click();
     }

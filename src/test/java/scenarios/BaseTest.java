@@ -1,25 +1,28 @@
 package scenarios;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
-import pageObjects.nativeObjects.NativeSigninPage;
+import pageobjects.nativeobjects.NativeSigninPage;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-import pageObjects.webObjects.WebPageObject;
+import pageobjects.webobjects.WebPageObject;
 
 public class BaseTest {
 
     private static AppiumDriver appiumDriver;
-    protected NativeSigninPage nativePo;
-    protected WebPageObject webPo;
+    protected static NativeSigninPage nativePo;
+    protected static WebPageObject webPo;
 
     public AppiumDriver getDriver() {
         return appiumDriver;
+    }
+
+    public WebPageObject getWebPo() {
+        return webPo;
     }
 
     @Parameters({"platformName",
@@ -44,8 +47,19 @@ public class BaseTest {
                       @Optional("") String bundleId,
                       @Optional("") String timeout) throws Exception {
         System.out.println("Before: app type - " + appType);
-        setAppiumDriver(platformName, deviceName, udid, browserName, app, appPackage, appActivity, bundleId, timeout);
-        setPageObject(appType, appiumDriver);
+        setAppiumDriver(platformName, deviceName, udid, browserName,
+            app,
+            appPackage,
+            appActivity,
+            bundleId,
+            timeout
+        );
+        try {
+            setPageObject(appType, appiumDriver);
+        } catch (Exception e) {
+            System.out.println("Error when setting page object");
+            e.printStackTrace();
+        }
     }
 
     @AfterSuite(alwaysRun = true)
@@ -62,9 +76,8 @@ public class BaseTest {
                                  String appPackage,
                                  String appActivity,
                                  String bundleId,
-                                 String timeout) {
+                                 String timeout) throws Exception {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-
         capabilities.setCapability("platformName", platformName);
         capabilities.setCapability("deviceName", deviceName);
         capabilities.setCapability("udid", udid);
@@ -77,7 +90,7 @@ public class BaseTest {
         capabilities.setCapability("bundleId", bundleId);
         capabilities.setCapability("chromedriverDisableBuildCheck", "true");
         capabilities.setCapability("newCommandTimeout", timeout);
-//        if(platformName.equals("iOS")) {
+//        if (platformName.equals("iOS")) {
 //            capabilities.setCapability("automationName", "XCUITest");
 //        }
         try {
@@ -85,10 +98,8 @@ public class BaseTest {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
         // Timeouts tuning
-        appiumDriver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-        appiumDriver.hideKeyboard();
+        appiumDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     private void setPageObject(String appType, AppiumDriver appiumDriver) throws Exception {
@@ -100,8 +111,7 @@ public class BaseTest {
                 webPo = new WebPageObject(appiumDriver);
                 break;
             default:
-                System.out.println("");
-                break;
+                throw new Exception("Can't create a page object for "+appType);
         }
     }
 }
