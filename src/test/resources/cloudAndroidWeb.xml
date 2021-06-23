@@ -3,7 +3,7 @@
   <parameter name="appType" value="web"/>
   <parameter name="platformName" value="Android"/>
   <parameter name="browserName" value="Chrome"/>
-  <parameter name="udid" value="0A211JEC222740"/>
+<!--  <parameter name="udid" value="0A211JEC222740"/>-->
   <test name="Cloud Android Web Test">
     <groups>
       <run>

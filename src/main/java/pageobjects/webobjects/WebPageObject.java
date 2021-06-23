@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebPageObject {
 
-    private String platform;
+    private final String platform;
     AppiumDriver driver;
 
     @FindBy(xpath = "//input[@name='q']")
@@ -27,21 +27,19 @@ public class WebPageObject {
         PageFactory.initElements(driver, this);
     }
 
-    public void searchTextFieldInput(String text) {
+    public WebPageObject searchTextFieldInput(String text) {
         new WebDriverWait(driver, 10)
             .until(
                 wd -> ((JavascriptExecutor) wd)
                     .executeScript("return document.readyState").equals("complete")
             );
         if (platform.equals("Android")) {
-            System.out.println("Android try to send submit button");
             searchField.sendKeys(text + "\n");
-        } else if (platform.equals("iOS")) {
+        } else {
             searchField.sendKeys(text);
             searchField.submit();
-        } else {
-            System.out.println("Something went wrong");
         }
+        return this;
     }
 
     public List<String> searchResultsHeaders() {

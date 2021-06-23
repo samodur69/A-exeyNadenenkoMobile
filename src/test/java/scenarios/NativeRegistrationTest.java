@@ -1,6 +1,6 @@
 package scenarios;
 
-import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import dto.User;
 import org.testng.annotations.Test;
@@ -14,15 +14,17 @@ public class NativeRegistrationTest extends BaseTest {
     public void performRegistrationAndLoginTest(String email,
                                                 String username,
                                                 String psw,
-                                                String title) throws Exception {
+                                                String expectedTitle) throws Exception {
 
         User user = new User(email, username, psw);
-        assertEquals(nativePo
-                .navigateToRegistration()
-                .createAccount(user)
-                .logIn(user)
-                .getPageTitle(),
-            title,
-            "Wrong title");
+        String actualTitle = nativePo
+            .navigateToRegistration()
+            .createAccount(user)
+            .logIn(user)
+            .getPageTitle();
+
+        assertThat(expectedTitle)
+            .containsIgnoringCase(actualTitle)
+            .as("Wrong Title");
     }
 }

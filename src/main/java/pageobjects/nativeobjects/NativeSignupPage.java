@@ -38,9 +38,9 @@ public class NativeSignupPage extends AbstractPageObject {
         sendKeys(usernameField, user.getUsername());
         sendKeys(passwordField, user.getPsw());
         sendKeys(confirmPasswordField, user.getPsw());
-
+        registerNewAccBtn.click();
         click(registerNewAccBtn);
-//        click(registerNewAccBtn);
+        //        click(registerNewAccBtn);
         return new NativeSigninPage(appiumDriver);
     }
 }

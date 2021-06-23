@@ -3,8 +3,7 @@
   <parameter name="appType" value="web"/>
   <parameter name="platformName" value="iOS"/>
   <parameter name="browserName" value="Safari"/>
-<!--  <parameter name="deviceName" value="IPAD 11,3"></parameter>-->
-  <parameter name="udid" value="718ea667e83b46cdbdabf947858bf355dfc0b49c"/>
+<!--  <parameter name="udid" value="00008101-0000141E3E78001E"/>-->
   <test name="Cloud iOS Web Test">
     <groups>
       <run>
