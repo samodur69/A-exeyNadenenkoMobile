@@ -4,7 +4,7 @@
   <parameter name="platformName" value="Android"/>
   <parameter name="appPackage" value="platkovsky.alexey.epamtestapp"/>
   <parameter name="appActivity" value="activities.LoginActivity"/>
-  <parameter name="udid" value="HT7AD1A00541"/>
+  <parameter name="udid" value="0A211JEC222740"/>
   <test name="Android Native tests">
     <groups>
       <run>

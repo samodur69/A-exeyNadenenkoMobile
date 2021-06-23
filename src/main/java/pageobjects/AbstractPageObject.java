@@ -2,7 +2,6 @@ package pageobjects;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,16 +19,9 @@ public class AbstractPageObject implements IPageObject {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);
     }
 
-    public void openUrlInBrowser(String url) {
-        appiumDriver.get(url);
-        new WebDriverWait(appiumDriver, 10).until(
-            wd -> ((JavascriptExecutor) wd)
-                .executeScript("return document.readyState")
-                .equals("complete"));
-    }
-
     @Override
     public void sendKeys(WebElement el, String text) {
+        // commented Method used only for local test with my hardware
         //        appiumDriver.hideKeyboard();
         wait.until(ExpectedConditions.visibilityOf(el));
         el.sendKeys(text);
@@ -37,8 +29,10 @@ public class AbstractPageObject implements IPageObject {
 
     @Override
     public void click(WebElement el) {
+        // commented Method used only for local test with my hardware
         //        appiumDriver.hideKeyboard();
         wait.until(ExpectedConditions.elementToBeClickable(el));
+//        el.submit();
         el.click();
     }
 

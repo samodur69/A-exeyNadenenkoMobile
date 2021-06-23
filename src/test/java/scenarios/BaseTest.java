@@ -55,7 +55,7 @@ public class BaseTest {
             timeout
         );
         try {
-            setPageObject(appType, appiumDriver);
+            setPageObject(appType, platformName, appiumDriver);
         } catch (Exception e) {
             System.out.println("Error when setting page object");
             e.printStackTrace();
@@ -90,25 +90,28 @@ public class BaseTest {
         capabilities.setCapability("bundleId", bundleId);
         capabilities.setCapability("chromedriverDisableBuildCheck", "true");
         capabilities.setCapability("newCommandTimeout", timeout);
-//        if (platformName.equals("iOS")) {
-//            capabilities.setCapability("automationName", "XCUITest");
-//        }
+        if (platformName.equals("iOS")) {
+            capabilities.setCapability("automationName", "XCUITest");
+        }
         try {
+            capabilities.toString();
             appiumDriver = new AppiumDriver(new URL(System.getProperty("ts.appium")), capabilities);
         } catch (MalformedURLException e) {
+            System.out.println("\nError in setting Appium Driver\n");
             e.printStackTrace();
+
         }
         // Timeouts tuning
         appiumDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    private void setPageObject(String appType, AppiumDriver appiumDriver) throws Exception {
+    private void setPageObject(String appType, String platform, AppiumDriver appiumDriver) throws Exception {
         switch (appType) {
             case "native":
                 nativePo = new NativeSigninPage(appiumDriver);
                 break;
             case "web":
-                webPo = new WebPageObject(appiumDriver);
+                webPo = new WebPageObject(appiumDriver, platform);
                 break;
             default:
                 throw new Exception("Can't create a page object for "+appType);

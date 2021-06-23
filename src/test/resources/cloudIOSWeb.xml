@@ -4,7 +4,7 @@
   <parameter name="platformName" value="iOS"/>
   <parameter name="browserName" value="Safari"/>
 <!--  <parameter name="deviceName" value="IPAD 11,3"></parameter>-->
-  <parameter name="udid" value="00008030-001115E40EE2802E"/>
+  <parameter name="udid" value="718ea667e83b46cdbdabf947858bf355dfc0b49c"/>
   <test name="Cloud iOS Web Test">
     <groups>
       <run>
